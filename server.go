@@ -1,15 +1,27 @@
 package main
 
 import (
+	"fmt"
 	"log"
-	"net/http"
+	"net"
+	"google.golang.org/grpc"
+  "server/services"
 )
 
 func main()  {
-  
-  http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-    log.Println("Hello World!")   
-  })
+  s := grpc.NewServer()
 
-  http.ListenAndServe(":9000",nil)
+  listener, err := net.Listen("tcp", ":50051")
+  if err != nil{
+    log.Fatal(err)
+  }
+
+  services.RegisterGreetingServer(s, services.NewGreetingServer())
+
+  fmt.Println("gRPC server listening on port 50051")
+
+  err = s.Serve(listener)
+  if err != nil{
+    log.Fatal(err)
+  }
 }
