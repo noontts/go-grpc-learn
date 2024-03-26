@@ -17,10 +17,10 @@ message Status {
 }
 
 message Tasks {
-  string title = 1,
-  string description = 2,
-  string status = 3,
-  google.protobuf.Timestamp due_date = 4,
+  string title = 1;
+  string description = 2;
+  string status = 3;
+  google.protobuf.Timestamp due_date = 4;
 } 
 
 message CreateTasksRequest {
