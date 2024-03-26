@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+package services;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "./services";
+
+service TasksTracker {
+  rpc CreateNewTasks (CreateTasksRequest) returns (CreateTasksResponse) {}
+  rpc GetListTasks (GetListTasksRequest) returns (GetListTasksResponse) {}
+}
+
+message Status {
+  string code = 1;
+  string status = 2;
+}
+
+message Tasks {
+  string title = 1,
+  string description = 2,
+  string status = 3,
+  google.protobuf.Timestamp due_date = 4,
+} 
+
+message CreateTasksRequest {
+  string title = 1;
+  string description = 2;
+  google.protobuf.Timestamp due_date = 3;
+}
+
+message CreateTasksResponse {
+  Status status = 1;
+  Tasks tasks = 2;
+}
+
+message GetListTasksRequest {
+}
+
+message GetListTasksResponse {
+  Status status = 1;
+  repeated Tasks tasks = 2; 
+}
+
+
+
+
